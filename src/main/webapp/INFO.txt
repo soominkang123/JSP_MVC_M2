@@ -34,11 +34,75 @@ MVC (Model, View, Controller ) : M , V , C 분리해서 개발 하는 환경
 ==================================================================================
 
 1. DB 연결 클래스 생성 : Connection 객체 사용할 DB 연결
+   - common.JDBCUtil.java
 
-2. DB(Oracle)에 개발할 테이블 생성
+2. DB(Oracle)에 개발할 테이블 생성 ( MVC ) 
+   - users    : 사용자 정보 , user, admin
+   - board    : user, admin 게시판
+   - product  : admin(관리자만 접근 가능)
+===================================================================================
+Oracle에서 생성된 테이블 
 
-3. Controller : 서블릿으로 생성 
+
+-- MVC 로 개발될 테이블
+
+create table board (
+  seq number(5)not null primary key,
+  title varchar2(200) not null,
+  write varchar2(20) null,
+  content varchar2(2000) null,
+  regdate date default sysdate null,
+  cnt number(5) default 0 null
+  );
+  
+  create table users (
+    id varchar2(8)not null primary key,
+    password varchar2(8) null,
+    name varchar2(5)
+  );
+  
+  create table products(
+  p_code number(5) not null primary key,
+  p_name varchar2(200) null,
+  P_kind char(1) null,
+  p_price varchar2(10) null,
+  p_content varchar2(2000) null,
+  p_quantity varchar2(5),
+  indate date default sysdate null
+  );
+  
+   -- 더미 데이터 입력 :
+  insert into board 
+  values ( 1, 'MVC M2 게시판 제목' , 'admin' , 'MVC M2 게시판 내용' , default, 0 ); 
+  insert into board 
+  values ( 2, 'MVC M2 게시판 제목2' , 'user' , 'MVC M2 게시판 내용2' , default, 0 ) ; 
+
+  commit; 
+  select * from board; 
+
+  insert into users
+  values ( 'admin' , '1234', '관리자', 'Admin'); 
+  insert into users
+  values ( 'user' , '1234', '사용자', 'Users'); 
+  commit; 
+
+  select * from users; 
+  =======================================================================
+   
+3. Controller : 서블릿으로 생성 (위치 New -> other) 
     - 서블릿 : *.java ===> 웹페이지로 출력 , jsp 의 <%  %> ==톰캣==> 서블릿 으로 변환후 출력
+    - 작동 :
+           - web, xml 셋팅 : client 요청에 대한 controller Mapping <== ( X )
+           - 어노테이션으로 셋팅 : @Webservlet ("*,do") 
+        
+     - doGet ( Request req, Response resp) : Client 가 보내는 get 요청을 받는 메소드 
+     - doPost ( Request req, Response resp) : Client 가 보내는 get 요청을 받는 메소드     
+           
+    Client 가 서버에게 요청
+     - get : URL을 사용해서 요청, form method = "get"
+        - URL 뒤에 요청정보를 보냄 , 용량의 제한이 있음.
+     - post : form method = "post"    
+        - http 헤더 앞에 파라미터를 서버로 보냄      
 
 4. DTO 생성
 5. DAO 생성

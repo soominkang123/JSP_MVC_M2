@@ -23,7 +23,7 @@ public class JDBCUtil {
 		     try{
 		    	
 		    	 Class.forName(driver);  
-		         conn = DriverManager.getConnection(url,"C##HR", "1234");
+		         conn = DriverManager.getConnection(url,"C##HR12", "1234");
 		    	// System.out.println("DB 연결이 성공 했습니다.");			 
 		    	 
 		     }catch (Exception e) {
@@ -39,6 +39,36 @@ public class JDBCUtil {
 		
 		// 객체 반납 메소드
 		public static void close(PreparedStatement pstmt, Connection conn) {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+					System.out.println(" pstmt 가 잘 제거 되었습니다. ");
+				}catch(Exception e) {
+					System.out.println(" pstmt 가 잘 제거중 오류 발생 했습니다. ");
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+					System.out.println( "conn이 잘 제거되었습니다.");
+				}catch (Exception e) {
+					System.out.println( "conn 제거중 오류 발생됨. ");
+				}
+			}
+		}
+		
+		// rs. pstmt, conn 반납 : select 문을 사용하고 반납 , 
+		// 메소드 오버로딩 
+		public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
+			if (rs != null) {
+				try {
+					rs.close();
+					System.out.println("rs 가 잘 제거 되었습니다.");
+				}catch (Exception e) {
+					System.out.println("rs 가 제거 중 실패 되었습니다.");
+				}
+			}
+			
 			if (pstmt != null) {
 				try {
 					pstmt.close();
