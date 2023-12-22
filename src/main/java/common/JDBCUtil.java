@@ -37,4 +37,24 @@ public class JDBCUtil {
 			return conn;
 		}
 		
+		// 객체 반납 메소드
+		public static void close(PreparedStatement pstmt, Connection conn) {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+					System.out.println(" pstmt 가 잘 제거 되었습니다. ");
+				}catch(Exception e) {
+					System.out.println(" pstmt 가 잘 제거중 오류 발생 했습니다. ");
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+					System.out.println( "conn이 잘 제거되었습니다.");
+				}catch (Exception e) {
+					System.out.println( "conn 제거중 오류 발생됨. ");
+				}
+			}
+		}
+		
 }
