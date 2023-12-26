@@ -47,7 +47,7 @@ public class Board_Controller extends HttpServlet {
 			System.out.println("/insertBoard.do 요청");
 			//로직처리
 			
-			// 1. 클라이언트의 넘어오는 변수가 잘 들어 오는지 확인 
+			// 1. 클라이언트의 넘어오는 변수가 잘 들어 오는지 확인  (클라이언트 요청)
 			String title = request.getParameter("title");
 			String write = request.getParameter("write");
 			String content = request.getParameter("content");
@@ -66,13 +66,23 @@ public class Board_Controller extends HttpServlet {
 			
 			// 3. DAO 에 insertBoard ( dto )
 			BoardDAO dao = new BoardDAO();
-			dao.insertBoard(dto);
+			dao.insertBoard(dto);          // insert 성공
 			
-			System.out.println("DB 저장 성공");
+			//System.out.println("DB 저장 성공");
 			
-		}else if (path.equals("/getBoardList.do")) {
+			// 비즈니스 로직 완료 : DTO, DAO 
+			
+			// 4. 뷰 페이지 전송 : 값을 insertBoard 완료 후 DB의 전체 레코드를 출력 페이지로 이동
+			    // 클라이언트가 /getBoardList.do 요청을 새롭게 요청함.
+			response.sendRedirect("/gdetBoardList.do");
+			
+			
+			
+		}else if (path.equals("/getBoardList.do")) {   // DB의 레코드를 출력 하는 페이지
 			System.out.println("/getBoardList.do 요청");
 			//로직처리
+			
+			
 			
 		}else if (path.equals("/getBoard.do")) {
 			System.out.println("/getBoard.do 요청");

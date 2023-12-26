@@ -1,6 +1,8 @@
 package board;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import common.JDBCUtil;
 
@@ -12,9 +14,16 @@ public class BoardDAO {
 	ResultSet rs = null;
 		
 	//sql 쿼리를 상수로 지정함.
+	// insert 쿼리
 	private final String BOARD_INSERT = 
 			"insert into board (seq, title, write, content) "
 	        + "values (( select nvl (max(seq),0) + 1 from board ) , ? , ? , ? )";
+	
+	// DB의 Board 테이블의 모든 레코드를 출력하는 쿼리
+	private final String BOARD_LIST = "select * from board order by seq desc";
+	
+	
+	
 
 	//insertBoard(BoardDTO dto) 메소드 : 
 	public void insertBoard (BoardDTO dto) {
@@ -49,4 +58,38 @@ public class BoardDAO {
 		
 		
 	}
+	
+	// Board 테이블의 전체 레코드를 출력하는 메소드 --중요
+	// DB의 레코드 하나를 BoardDTO에 담는다. 각각의 BoardDTO 를 ArrayList 에 담아서 리턴. 
+	// rs , pstmt, conn
+	public List<BoardDTO> getBoardList(BoardDTO dto) {
+		List<BoardDTO> boardList = new ArrayList<>();
+		
+		try {
+			conn = JDBCUtil.getConnection();  // conn 객체 활성화 : Oracle , XE , HR12 , 1234
+			pstmt = conn.prepareStatement(BOARD_LIST);
+			
+			// pstmt 를 실행후 rs 에 레코드를 저장 
+			rs = pstmt.executeQuery();
+			
+			System.out.println("DB Select 성공");
+			
+			
+		}catch (Exception e) {
+			System.out.println("DB Select 실패");
+			e.printStackTrace();   // 실패 할 경우 콘솔에 오류 정보 출력.
+			
+		}finally {
+			// 사용한 객체 반납 : rs , pstmt, conn
+			JDBCUtil.close(rs, pstmt, conn);
+		  
+			
+		}
+		
+		
+		
+		return boardList ;		
+		
+	}
+	
 }
