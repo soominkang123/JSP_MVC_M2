@@ -105,7 +105,11 @@ create table board (
         - http 헤더 앞에 파라미터를 서버로 보냄      
 
 4. DTO 생성
-5. DAO 생성
-6. View 페이지 생성
+     복붙
+5. DAO 생성 : 테이블에 값을 insert, update, delete, select 쿼리, 메소드
+
+6. DAO 의 메소드 테스트 ,
+
+ 7. View 페이지 생성 : html, jsp <== webapp
 
          

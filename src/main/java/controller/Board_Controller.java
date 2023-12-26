@@ -7,6 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import board.BoardDAO;
+import board.BoardDTO;
+
 // http://localhost:8181/JSP_MVC_M2/*.do
 @WebServlet("*.do")
 public class Board_Controller extends HttpServlet {
@@ -43,6 +46,29 @@ public class Board_Controller extends HttpServlet {
 		if (path.equals("/insertBoard.do")) {
 			System.out.println("/insertBoard.do 요청");
 			//로직처리
+			
+			// 1. 클라이언트의 넘어오는 변수가 잘 들어 오는지 확인 
+			String title = request.getParameter("title");
+			String write = request.getParameter("write");
+			String content = request.getParameter("content");
+			
+			/*
+			System.out.println("title : " + title);
+			System.out.println("write : " + write);
+			System.out.println("content : " + content);
+			*/
+			
+			// 2. 클라이언트에서 넘어오는 변수의 값으 DTO에 Setter 주입.
+			BoardDTO dto = new BoardDTO();
+			dto.setTitle(title);
+			dto.setWrite(write);
+			dto.setContent(content);
+			
+			// 3. DAO 에 insertBoard ( dto )
+			BoardDAO dao = new BoardDAO();
+			dao.insertBoard(dto);
+			
+			System.out.println("DB 저장 성공");
 			
 		}else if (path.equals("/getBoardList.do")) {
 			System.out.println("/getBoardList.do 요청");
