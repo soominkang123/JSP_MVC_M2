@@ -166,23 +166,22 @@ public class Board_Controller extends HttpServlet {
 		} else if (path.equals("/deleteBoard.do")) {
 			System.out.println("/deleteBoard.do 요청");
 			// 로직처리
-			
-			//1. 클라이언트의 파라미터 변수의 값 할당 : seq 
-			String s_seq = request.getParameter("seq"); 
-			int seq = Integer.parseInt(s_seq); 
-			
-			//2. 변수의 값을 BoardDTO에 주입 
-			BoardDTO dto = new BoardDTO(); 
-			dto.setSeq(seq); 
-			
-			//3. BoardDAO의 메소드 호출 : deleteBoard(dto) 
-			BoardDAO dao = new BoardDAO(); 
-			
-			dao.deleteBoard(dto); 
-			
-			//4. 뷰 페이지 이동 
-			response.sendRedirect("getBoardList.do"); 
-			
+
+			// 1. 클라이언트의 파라미터 변수의 값 할당 : seq
+			String s_seq = request.getParameter("seq");
+			int seq = Integer.parseInt(s_seq);
+
+			// 2. 변수의 값을 BoardDTO에 주입
+			BoardDTO dto = new BoardDTO();
+			dto.setSeq(seq);
+
+			// 3. BoardDAO의 메소드 호출 : deleteBoard(dto)
+			BoardDAO dao = new BoardDAO();
+
+			dao.deleteBoard(dto);
+
+			// 4. 뷰 페이지 이동
+			response.sendRedirect("getBoardList.do");
 
 		}
 

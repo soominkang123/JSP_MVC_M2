@@ -63,7 +63,10 @@
       <a href = "deleteBoard.do?seq=<%= board.getSeq() %>" >
          글 삭제
          </a>
-          
+         
+        <p /> <a href="http://Localhost:8181/JSP_MVC_M2"> 홈으로 </a>
+        <p /> <a href= "getBoardList.do"> 글 목록</a>       
+		<p /> <a href= "insertBoard.jsp"> 새 글쓰기</a> 
          
        
        </center>
