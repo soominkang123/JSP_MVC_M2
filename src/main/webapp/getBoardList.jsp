@@ -15,6 +15,10 @@
 	   } catch (Exception e) {
 		   response.sendRedirect("getBoardList.do");
 	   }
+   
+   if(boardList == null) {
+	   response.sendRedirect("getBoardList.do");
+   }
  
 %>    
     
@@ -60,7 +64,7 @@
            }
         // 모두 사용됨 : boardList
         // 세년 변수의 값을 제거 : 서버의 메모리에서 세션 변수 boardList에 저장한 값을 제거
-        session.removeAttribute("boardList");
+        //session.removeAttribute("boardList");
        %>
        
        <!-- http://localhost:8181/JSP_MVC_M2/getBoardList.do ==> .jsp 로변경 로 출력

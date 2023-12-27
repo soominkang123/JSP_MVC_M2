@@ -120,4 +120,9 @@ create table board (
  7. View 페이지 생성 : html, jsp <== webapp
 
 ===============================================================================
-         
+   ctrl + shift + F : 코드 자동 정렬  
+     
+     client (view) ===> *.do 요청 ==> Controller ( 1. 요청, 2. 로직 3.뷰)
+     client (view) ===> (서버에서 렌더링)  
+
+MVC 환경에서 : CRUD ( Create(입력), Read(출력) , Update(수정) , Delete(삭제) )     
