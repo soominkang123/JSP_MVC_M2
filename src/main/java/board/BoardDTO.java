@@ -22,4 +22,11 @@ public class BoardDTO {
 	private String content;
 	private Date regdate; // Date 입력시 Oracle data 값 추가
 	private int cnt;
+	
+	// 검색 기능의 필드 추가 : 
+	// searchCondition : TITLE, WRITE, CONTENT, REGDATE 중 하나의 값이 저장 , DB 의 검색할 컬럼명
+	// searchKeword : 검색어
+	private String searchCondition;
+	private String searchKeword;
+	
 }

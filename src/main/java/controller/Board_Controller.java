@@ -28,7 +28,7 @@ public class Board_Controller extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		// client 에서 보내는 get, post 요청 모두 처리도미
+		// client 에서 보내는 get, post 요청 모두 처리됨
 		// 한글이 깨어지지 않도록 처리
 		request.setCharacterEncoding("UTF-8");
 
@@ -40,7 +40,7 @@ public class Board_Controller extends HttpServlet {
 		String uri = request.getRequestURI();
 		System.out.println(uri);
 
-		//
+		
 		String path = uri.substring(uri.lastIndexOf("/"));
 		System.out.println(path);
 		System.out.println("===================");
@@ -59,7 +59,7 @@ public class Board_Controller extends HttpServlet {
 			 * write); System.out.println("content : " + content);
 			 */
 
-			// 2. 클라이언트에서 넘어오는 변수의 값으 DTO에 Setter 주입.
+			// 2. 클라이언트에서 넘어오는 변수의 값을 DTO에 Setter 주입.
 			BoardDTO dto = new BoardDTO();
 			dto.setTitle(title);
 			dto.setWrite(write);
@@ -82,9 +82,30 @@ public class Board_Controller extends HttpServlet {
 		} else if (path.equals("/getBoardList.do")) { // DB의 레코드를 출력 하는 페이지
 			System.out.println("/getBoardList.do 요청");
 			// 로직처리
-
+			
+			// 검색어 처리 부분
+			String searchCondition = request.getParameter("searchCondition");
+			String searchKeword = request.getParameter("searchKeword");
+				 
+		    //NULL 에 대한 처리 : 
+		    if(searchCondition == null) {
+		    	searchCondition = "TITLE";
+		    	
+		    } 
+			if(searchKeword == null) {
+				searchKeword = "";
+			}
+			
+//		    System.out.println("검색 조건 :" + searchCondition);
+//		    System.out.println(" 검색어 : " + searchKeword);
+		    
+		    
 			// 1. BoardDTO 객체 생성
 			BoardDTO dto = new BoardDTO();
+			
+			// 검색어를 dto에 setter 주입후
+			dto.setSearchCondition(searchCondition);
+			dto.setSearchKeword(searchKeword);
 
 			// 2. BoardDAO 객체의 getBoardList(dto)
 			BoardDAO dao = new BoardDAO();
@@ -166,8 +187,8 @@ public class Board_Controller extends HttpServlet {
 		} else if (path.equals("/deleteBoard.do")) {
 			System.out.println("/deleteBoard.do 요청");
 			// 로직처리
-
-			// 1. 클라이언트의 파라미터 변수의 값 할당 : seq
+		
+	        // 1. 클라이언트의 파라미터 변수의 값 할당 : seq
 			String s_seq = request.getParameter("seq");
 			int seq = Integer.parseInt(s_seq);
 
